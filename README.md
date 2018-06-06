@@ -1,2 +1,2 @@
 # Algorithms
-Repository for practising algorithms
+Repository for practising algorithms on C++
