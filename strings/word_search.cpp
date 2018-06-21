@@ -1,4 +1,7 @@
 /*
+
+Leetcode task from https://leetcode.com/problems/word-search/description/
+
 Pseudo code
 
 exist_helper(board, i, j, word, visited):
