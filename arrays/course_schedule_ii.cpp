@@ -29,10 +29,13 @@ public:
         
         // fill up the queue with 0 indegrees
         for (int i = 0; i < indegrees.size(); ++i) {
-            if (indegrees[i] == 0) nodes.push(indegrees[i]);
+            if (indegrees[i] == 0) nodes.push(i);
         }
         
+        int visited_nodes = 0;
+        
         while (!nodes.empty()) {
+            visited_nodes++;
             int node = nodes.front();
             nodes.pop();
             result.push_back(node);
@@ -44,7 +47,7 @@ public:
             }
         }
         
-        return result.size() ? result : vector<int>();
+        return numCourses == visited_nodes ? result : vector<int>();
     }
 };
 
