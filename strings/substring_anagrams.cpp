@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 #include <iostream>
 #include <string>
+#include <map>
+#include <vector>
 
 /*
 
@@ -32,7 +34,8 @@ bool is_anagram(string s1, string s2) {
 }
 
 // Complete the sherlockAndAnagrams function below.
-int sherlockAndAnagrams(string s) {
+// Brute force
+int sherlockAndAnagramsBruteForce(string s) {
     int counter = 0;
     
     for (int len = 1; len < s.length(); ++len) {
@@ -45,6 +48,25 @@ int sherlockAndAnagrams(string s) {
                 counter += is_anagram(s1, s2);
             }
         }
+    }
+    return counter;
+}
+
+// Quick solution
+int sherlockAndAnagrams(string s) {
+    map<vector<int>, int> mp;
+    for (int i = 0; i < s.length(); ++i) {
+        vector<int> freq(26, 0);
+        for (int j = i; j < s.length(); ++j) {
+            freq[s[j] - 'a']++;
+            mp[freq]++;
+        }
+    }
+    
+    int counter = 0;
+    for (map<vector<int>, int>::iterator it = mp.begin(); it != mp.end(); ++it) {
+        int freq = it->second;
+        counter += freq * (freq - 1) / 2;
     }
     return counter;
 }
