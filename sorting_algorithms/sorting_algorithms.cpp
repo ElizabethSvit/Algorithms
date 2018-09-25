@@ -33,7 +33,10 @@
      2. For current heap - heapify (make the root max)
      3. Move current root to the end and repeat with reduced array (without the last)
  
-  - Top sort:
+  - Counting sort:
+     1. Build a hash array [value: count of how many times is met in arr]
+     2. Sum up every previous count for each value
+     3. Put in the oproptiate index in the result array by counts
  
  
  */
@@ -191,6 +194,25 @@ void heap_sort(vector<int>& arr) {
     }
 }
 
+// Counting sort
+void count_sort(vector<int>& arr) {
+    vector<int> count(255, 0);
+    for (int i = 0; i < arr.size(); ++i) {
+        count[arr[i]]++;
+    }
+    
+    for (int i = 1; i < count.size(); ++i) {
+        count[i] += count[i-1];
+    }
+    
+    vector<int> result(arr.size(), 0);
+    for (int i = 0; i < arr.size(); ++i) {
+        result[count[arr[i]] - 1] = arr[i];
+        --count[arr[i]];
+    }
+    copy(result.begin(), result.end(), arr.begin());
+}
+
 // Testing
 void test_edge(void sorting(vector<int>&)) {
     vector<int> arr = {1};
@@ -261,8 +283,8 @@ void test_random_quick(void sorting(vector<int>&, int, int)) {
 }
 
 int main() {
-    test_edge(heap_sort);
-    test_random(heap_sort);
+    test_edge(count_sort);
+    test_random(count_sort);
     
 //    test_edge_quick(quick_sort);
 //    test_random_quick(quick_sort);
